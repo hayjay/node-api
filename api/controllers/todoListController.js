@@ -12,14 +12,14 @@
 
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
     Task = mongoose.model('Tasks');
 
 //function for getting all available tasks
 exports.list_all_tasks = function(req, res){
     Task.find({}, function(err, task){
         if(err)
-            res.send(err);
+            res.send(err).status(200);
         res.json(task);
     });
 };
@@ -32,7 +32,6 @@ exports.create_a_task = function(req, res){
         res.json(task);
     });
 }
-
 
 exports.read_a_task = function(req, res) {
     Task.findById(req.params.taskId, function(err, task) {
