@@ -3,6 +3,7 @@ var express = require('express'),
     port = process.env.PORT || 4000,
     mongoose = require('mongoose'),
     Task = require('./api/models/todoListModel'),
+    cors = require('cors');
     bodyParser = require('body-parser');
 
 //mongoose instance connection url connection
@@ -15,6 +16,7 @@ mongoose.connect('mongodb://localhost/ReactTododb').then(
     ).catch(() => {
     console.log("Conntection to database failed.");
 });
+app.use(cors());
 app.use(bodyParser.json());
 
 // parse incoming requests
