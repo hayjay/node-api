@@ -11,7 +11,7 @@ mongoose.Promise = global.Promise;
 //connect directly to mongoose
 mongoose.connect('mongodb://localhost/ReactTododb').then(
     (res) => {
-        console.log("Connected to Database Successfully.")
+        console.log("Successfully connected to the database.")
     }
     ).catch(() => {
     console.log("Conntection to database failed.");
