@@ -3,8 +3,11 @@ var express = require('express'),
     port = process.env.PORT || 4000,
     mongoose = require('mongoose'),
     Task = require('./api/models/todoListModel'),
-    cors = require('cors');
-    bodyParser = require('body-parser');
+    cors = require('cors'),
+    bodyParser = require('body-parser')
+    jwt = require('jsonwebtoken'),
+    // recuire bycrypt package for the purpose of password encryption
+    bcrypt = require('bcryptjs');
 
 //mongoose instance connection url connection
 mongoose.Promise = global.Promise;

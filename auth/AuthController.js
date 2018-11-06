@@ -1,13 +1,18 @@
 'use strict';
+// AuthController.js
 
-let mongoose = require('mongoose');
-    User = mongoose.model('Users');
+
+let User = mongoose.model('User'),
+    //require config.js in the root project directory
+    config = require('../config');
+    
+
 
 // function for creating user
 exports.createUser = (req, res) => {
     //encrypt the user password with bcrypt hashing method
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
-    
+
     //take the hashed password with the name of the user and email and create new user
     User.create({
       name : req.body.name,
@@ -25,49 +30,17 @@ exports.createUser = (req, res) => {
       });
       res.status(200).send({ auth: true, token: token });
     }); 
-}
-// AuthController.js
-var express = require('express');
-var router = express.Router();
-var bodyParser = require('body-parser');
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
-var User = require('../user/User');
-var jwt = require('jsonwebtoken');
-// recuire bycrypt package for the purpose of password encryption
-var bcrypt = require('bcryptjs');
-//require config.js in the root project directory
-var config = require('../config');
-
-//registration endpoint
-router.post('/register', function(req, res) {
-    //encrypt the user password with bcrypt hashing method
-    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
     
-    //take the hashed password with the name of the user and email and create new user
-    User.create({
-      name : req.body.name,
-      email : req.body.email,
-      password : hashedPassword
-    },
-    function (err, user) {
-      if (err) return res.status(500).send("There was a problem registering the user.")
-      // create a token
-      //The jwt.sign() method takes a payload and the secret key defined in config.js
-      // as parameters. It creates a unique string of characters representing the payload. 
-      //In our case, the payload is an object containing only the id of the user
-      var token = jwt.sign({ id: user._id }, config.secret, {
-        expiresIn: 86400 // expires in 24 hours
-      });
-      res.status(200).send({ auth: true, token: token });
-    }); 
-  });
-  //after creating the user, we can now easily create a token for him/her
+};
 
-  //a piece of code to get the user id based on the token
-  //    we got back from the register endpoint.
-  //   endpoint 
-  router.get('/me', function(req, res) {
+    //function that does this : 
+    // after creating the user, we can now easily create a token for him/her
+    //  a piece of code to get the user id based on the token
+    //  we got back from the register endpoint.
+
+exports.getToken = (req, res) => {
+    //collect the user token attached to the header property
+    //like a Bearer valueeee and fetch then verify if it exist
     var token = req.headers['x-access-token'];
     //If there is no token provided with the request the server
     // sends back an error. To be more precise, 
@@ -83,8 +56,4 @@ router.post('/register', function(req, res) {
       //send back the decoded value as the response.
       res.status(200).send(decoded);
     });
-  });
-  
-// add this to the bottom of AuthController.js
-//export so that it can be used in other file like app.js
-module.exports = router;
+};
