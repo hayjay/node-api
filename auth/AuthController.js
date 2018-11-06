@@ -1,14 +1,11 @@
 'use strict';
 // AuthController.js
-
-
-let User = mongoose.model('User'),
+let mongoose = require('mongoose'),
+    User = mongoose.model('User'),
     //require config.js in the root project directory
     config = require('../config');
-    
 
-
-// function for creating user
+    // function for creating new user
 exports.createUser = (req, res) => {
     //encrypt the user password with bcrypt hashing method
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);

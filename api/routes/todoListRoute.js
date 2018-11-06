@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = function(app){
-    var todoList = require('../controllers/todoListController');
+    let todoList = require('../controllers/todoListController'),
+    userAuth = require('../../auth/AuthController');
 
     //todoList Routes
     app.route('/tasks')
@@ -14,4 +15,10 @@ module.exports = function(app){
         .get(todoList.read_a_task)
         .put(todoList.update_a_task)
         .delete(todoList.delete_a_task);
+
+    app.route('/register')
+        .post(userAuth.createUser);
+    
+    app.route('/me')
+            .get(userAuth.getToken);
 };

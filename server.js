@@ -3,6 +3,7 @@ var express = require('express'),
     port = process.env.PORT || 4000,
     mongoose = require('mongoose'),
     Task = require('./api/models/todoListModel'),
+    User = require('./api/models/userModel'),
     cors = require('cors'),
     bodyParser = require('body-parser')
     jwt = require('jsonwebtoken'),

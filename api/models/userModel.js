@@ -1,10 +1,13 @@
 'use strict';
 var mongoose = require('mongoose');  
-var UserSchema = new mongoose.Schema({  
-  name: String,
+var Schema = mongoose.Schema;
+var UserSchema = new Schema({  
+  name : {
+      type : String,
+      required : 'Duplicate email address found'
+  },
   email: String,
   password: String
 });
-mongoose.model('User', UserSchema);
 
-module.exports = mongoose.model('User');
+module.exports = mongoose.model('User', UserSchema);
