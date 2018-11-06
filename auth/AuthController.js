@@ -52,8 +52,11 @@ router.post('/register', function(req, res) {
       if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
       
       //if there are no errors
-    //   send back the decoded value as the response.
+      //send back the decoded value as the response.
       res.status(200).send(decoded);
     });
   });
   
+// add this to the bottom of AuthController.js
+//export so that it can be used in other file like app.js
+module.exports = router;
