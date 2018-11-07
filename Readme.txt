@@ -10,5 +10,7 @@ This is an application built for solving todo apps problems
 Endpoint involved include:
     (a) User registration endpoint: This endpoint uses a jwt token for security purpose
         (i) When a user registeres, we always hash the password using the bcrypt package
-        (ii) After hashing the user password, we automatically generate or issue a token
-        
+        (ii) After hashing the user password, we automatically generate or issue a token for the user
+    (b) There is also a getToken endpoint for getting a specific user token after registration /me endpoint 
+    (c) An endpoint for creating a todolist.. the default status is always "pending"
+    (d) An endpoint for getting all existing todo list.
