@@ -3,8 +3,7 @@
 let mongoose = require('mongoose'),
     User = mongoose.model('User'),
     //require config.js in the root project directory
-    config = require('../config'),
-    middlewareVerifyToken = require('./VerifyToken');
+    config = require('../config');
 
     // function for creating new user
 exports.createUser = (req, res) => {
@@ -36,7 +35,7 @@ exports.createUser = (req, res) => {
     //  a piece of code to get the user id based on the token
     //  we got back from the register endpoint.
 
-exports.getToken = (req, res) => { //added next for authorization purpose
+exports.getToken = (req, res, next) => { //added next for authorization purpose
     //collect the user token attached to the header property
     //like a Bearer valueeee and fetch then verify if it exist
     var token = req.headers['x-access-token'];

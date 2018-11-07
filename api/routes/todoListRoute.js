@@ -2,7 +2,8 @@
 
 module.exports = function(app){
     let todoList = require('../controllers/todoListController'),
-    userAuth = require('../../auth/AuthController');
+    userAuth = require('../../auth/AuthController'),
+    middlewareVerifyToken = require('../../auth/VerifyToken');
 
     //todoList Routes
     app.route('/tasks')
@@ -19,7 +20,8 @@ module.exports = function(app){
     app.route('/register')
         .post(userAuth.createUser);
     
-    app.route('/me')
+    //add midleware to get token route
+    app.route('/me', middlewareVerifyToken)
             .get(userAuth.getToken);
 
     app.route('/login')
