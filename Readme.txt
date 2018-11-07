@@ -14,3 +14,7 @@ Endpoint involved include:
     (b) There is also a getToken endpoint for getting a specific user token after registration /me endpoint 
     (c) An endpoint for creating a todolist.. the default status is always "pending"
     (d) An endpoint for getting all existing todo list.
+    (e) A login (/login) end point for users supplying the email and password
+        (i) we always send a token back as a response when a user details/credentials is found or valid
+        (ii) case if user not found we send back null token and auth key value as false.
+         
