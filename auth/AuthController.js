@@ -72,7 +72,7 @@ exports.userLogin = (req, res) => {
     if (!found_user) return res.status(404).send('No user found.');
     //compare the request password with the retrieved hashed user password in the database
     var passwordIsValid = bcrypt.compareSync(req.body.password, found_user.password);
-    if (!passwordIsValid) 
+    if (!passwordIsValid) //wrong password
       //if password and saved password is not thesame
       //return 
       return res.status(401).send({ auth: false, token: null });
@@ -84,3 +84,9 @@ exports.userLogin = (req, res) => {
     res.status(200).send({ auth: true, token: token });
   });
 };
+
+exports.logOut = (req, res) => {
+  //this end point is not necessarily needed
+  //it can be done by the front-end .. also the act of setting a token to null
+  res.status(200).send({ auth: false, token: null });
+}

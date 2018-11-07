@@ -24,4 +24,7 @@ module.exports = function(app){
 
     app.route('/login')
         .post(userAuth.userLogin);
+
+    app.route('/logout')
+        .get(userAuth.logOut);
 };
