@@ -54,7 +54,7 @@ exports.getToken = (req, res) => {
       // res.status(200).send(decoded);/
       
       //verify that the jwt decoded id actually belongsTo the newly created user
-      //refused to return the password amog the json object (projection)
+      //refused to return the password among the json object (projection)
       User.findById(decoded.id, {password : 0} , (err, retrieved_user) => {
         if(err){
           return res.status(500).send('User was not found!');
