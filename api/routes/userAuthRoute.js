@@ -7,5 +7,8 @@ module.exports = function(app){
 
     app.route('/me')
         .get(userAuth.getToken);
+
+    // app.route('/login')
+    //     .post(userAuth.userLogin);
 }
   
