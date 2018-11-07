@@ -21,6 +21,8 @@ module.exports = function(app){
         .post(userAuth.createUser);
     
     //add midleware to get token route
+    //adding this middleware make users with verified tokens
+    //can access the resources!
     app.route('/me', middlewareVerifyToken)
             .get(userAuth.getToken);
 
@@ -30,3 +32,7 @@ module.exports = function(app){
     app.route('/logout')
         .get(userAuth.logOut);
 };
+
+// Remember, authentication is the act of logging a user in.
+//  Authorization is the act of verifying the
+//  access rights of a user to interact with a resource.
