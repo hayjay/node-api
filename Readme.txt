@@ -17,4 +17,5 @@ Endpoint involved include:
     (e) A login (/login) end point for users supplying the email and password
         (i) we always send a token back as a response when a user details/credentials is found or valid
         (ii) case if user not found we send back null token and auth key value as false.
-         
+    (f) Added logOut endpoint 
+    (g) our authentication is now done
