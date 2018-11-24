@@ -13,14 +13,16 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Task = mongoose.model('Tasks');
+    Task = mongoose.model('Tasks'),
+    config = require('../../config');
+
 
 //function for getting all available tasks
-exports.list_all_tasks = function(req, res){
+exports.list_all_tasks = function(req, res){//next param represent middleware
     Task.find({}, function(err, task){
-        if(err)
-            res.send(err).status(200);
-        res.json(task);
+            if(err)
+                res.send(err).status(400);
+            res.json(task);
     });
 };
 

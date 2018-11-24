@@ -25,7 +25,7 @@ exports.createUser = (req, res) => {
       var token = jwt.sign({ id: user._id }, config.secret, {
         expiresIn: 86400 // expires in 24 hours
       });
-      res.status(200).send({ auth: true, token: token });
+      res.status(200).send({ auth: true, token: token, status : 200, message : 'User created!' });
     }); 
     
 };
@@ -42,11 +42,12 @@ exports.getToken = (req, res, next) => { //added next for authorization purpose
     //If there is no token provided with the request the server
     // sends back an error. To be more precise, 
     //an 401 unauthorized status with a response message of ‘No token provided’.
-    if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
+    if (!token) return res.status(401).send({ auth: false, message: 'No token provided, kindly provide a user token.' });
     
     //If the token exists, the jwt.verify() method will be called.
     // This method decodes the token making it possible to view the original payload.
     jwt.verify(token, config.secret, function(err, decoded) {
+      console.log(token);
       if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
       
       //if there are no errors
@@ -69,20 +70,23 @@ exports.getToken = (req, res, next) => { //added next for authorization purpose
 
 exports.userLogin = (req, res) => {
   User.findOne({ email: req.body.email }, function (err, found_user) {
+    // let user_data = found_user;
+    // console.log(found_user);
     if (err) return res.status(500).send('Error on the server.');
     if (!found_user) return res.status(404).send('No user found.');
     //compare the request password with the retrieved hashed user password in the database
-    var passwordIsValid = bcrypt.compareSync(req.body.password, found_user.password);
+    let passwordIsValid = bcrypt.compareSync(req.body.password, found_user.password);
     if (!passwordIsValid) //wrong password
       //if password and saved password is not thesame
       //return 
-      return res.status(401).send({ auth: false, token: null });
+      return res.status(401).send({ auth: false, token: null, status : 401, message : 'Incorrect Username of Password' });
     //if the password sent from the request matches the password in the db
     //we call the jwt .sign method with an object value with the secret key
     var token = jwt.sign({ id: found_user._id }, config.secret, {
       expiresIn: 86400 // expires in 24 hours
     });
-    res.status(200).send({ auth: true, token: token });
+    
+    res.status(200).send({ auth: true, token: token, user : found_user, message : 'Login successful!'});
   });
 };
 

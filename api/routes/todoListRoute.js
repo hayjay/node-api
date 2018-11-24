@@ -3,10 +3,11 @@
 module.exports = function(app){
     let todoList = require('../controllers/todoListController'),
     userAuth = require('../../auth/AuthController'),
+    users = require('../admin/controllers/UserController'),
     middlewareVerifyToken = require('../../auth/VerifyToken');
 
     //todoList Routes
-    app.route('/tasks')
+    app.route('/tasks', middlewareVerifyToken)
         //reuising the tasks route for get and post http method
         .get(todoList.list_all_tasks)  //calling function list_all_tasks in the controller
         .post(todoList.create_a_task);
@@ -16,7 +17,7 @@ module.exports = function(app){
         .get(todoList.read_a_task)
         .put(todoList.update_a_task)
         .delete(todoList.delete_a_task);
-
+        
     app.route('/register')
         .post(userAuth.createUser);
     
@@ -31,6 +32,9 @@ module.exports = function(app){
 
     app.route('/logout')
         .get(userAuth.logOut);
+    
+    app.route('/admin/users/all')
+        .get(users.getUsers);
 };
 
 // Remember, authentication is the act of logging a user in.
