@@ -12,6 +12,7 @@
 
 'use strict';
 
+
 var mongoose = require('mongoose'),
     Task = mongoose.model('Tasks');
 
@@ -23,6 +24,7 @@ exports.list_all_tasks = function(req, res){
         res.json(task);
     });
 };
+// gg
 
 exports.create_a_task = function(req, res){
     var new_task = new Task(req.body);
